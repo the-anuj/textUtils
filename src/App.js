@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from "react";
+import Navbar from "./components/Navbar";
+import Textarea from "./components/Textarea";
+
 
 function App() {
+  const [mode, setMode]=useState('primary')
+  const toggleMode=()=>{
+    if(mode === 'primary'){
+      setMode('dark')
+      document.body.style.backgroundColor='#242121';
+      document.body.style.color='white';
+    }else{
+      setMode('primary')
+      document.body.style.backgroundColor='white';
+      document.body.style.color='black';
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar mode={mode} toggleMode = {toggleMode}/>
+      <Textarea title="Enter you text here for better analyze" mode={mode}/>
+    </>
   );
 }
 

@@ -2,15 +2,16 @@
 import React, { useState } from 'react'
 
 export default function Textarea(props) {
+    const [text, setText] = useState("")
     const onUpClick = () => {
-        setText(text.toUpperCase())
+        setText(text.toUpperCase().trim())
     }
     const onlwClick = () => {
         setText(text.toLowerCase())
     }
     const onWsClick = () => {
-        let newText = text.replace(/\s+/g, ' ').trim();
-        setText(newText)
+        let newText = text.replace(/\s+/g, ' ');
+        setText(newText.trim())
     }
     const onClClick = () => {
         setText("")
@@ -18,15 +19,17 @@ export default function Textarea(props) {
     const handleOnChange = (event) => {
         setText(event.target.value)
     }
-    const [text, setText] = useState("Enter your text here")
 
     let myStyle = {
-        backgroundColor:'white'
+        backgroundColor:'white',
+        color:'white'
     }
     if(props.mode==='primary'){
         myStyle.backgroundColor='white'
+        myStyle.color='black'
     }else{
         myStyle.backgroundColor='#3c3637'
+        myStyle.color='white'
     }
     
 
@@ -35,7 +38,7 @@ export default function Textarea(props) {
             <form className='container'>
                 <h3>{props.title}</h3>
                 <div className="mb-3">
-                    <textarea className='form-control text-secondary' value={text} onChange={handleOnChange}  style={myStyle} id="myBox" rows={8}></textarea>
+                    <textarea className='form-control'placeholder='Enter your text here' value={text} onChange={handleOnChange}  style={myStyle} id="myBox" rows={8}></textarea>
                 </div>
                 <div className='d-flex gap-3'>
                     <button type='button' className="btn btn-primary" onClick={onUpClick}>Change to uppercase</button>
@@ -46,7 +49,7 @@ export default function Textarea(props) {
             </form>
             <div className='container'>
                 <h2>Your Text summery</h2>
-                <p>{text.split(" ").length} Words and {text.length} characters.</p>
+                <p>{text?.trim().split(" ").length} Words and {text?.trim().length===1?0:text?.trim().length} characters.</p>
             </div>
 
         </>
